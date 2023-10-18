@@ -14,7 +14,7 @@ from sklearn.cluster import KMeans
 
 
 st.set_page_config(
-    page_title="Implemntasi Adabooost",
+    page_title="UTS PPW",
     page_icon='https://cdn-icons-png.flaticon.com/512/1998/1998664.png',
     layout='centered',
     initial_sidebar_state="expanded",
