@@ -322,7 +322,7 @@ with st.container():
         import pickle
         with open('lda.pkl', 'rb') as file:
             ldaa = pickle.load(file)
-        with open('nb_classifier.pkl', 'rb') as file:
+        with open('nb.pkl', 'rb') as file:
             bayes = pickle.load(file)
         with open('knn.pkl', 'rb') as file:
             knn = pickle.load(file)
