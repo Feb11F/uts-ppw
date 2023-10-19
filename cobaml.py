@@ -332,7 +332,7 @@ with st.container():
 
             if submit2:      
                 if met1 :
-                    
+                    erge=0
                 elif met2 :
                     st.write("Metode yang Anda gunakan Adalah Naive Bayes")
                     st.subheader('Hasil Prediksi')
@@ -347,5 +347,6 @@ with st.container():
                         st.success('KK')
                         st.write(proporsi_topik)
                 elif met3 :
+                    ergere=0
                 else :
                     st.write("Anda Belum Memilih Metode")
