@@ -300,7 +300,6 @@ with st.container():
             st.subheader("Implementasi")
             input_dokumen = st.text_input('Masukkan Judul Yang Akan Diklasfifikasi')
             input_vector = tfidf_vectorizer.transform([input_dokumen])
-            submit = st.form_submit_button("submit")
             # Prediksi proporsi topik menggunakan model LDA
             proporsi_topik = ldaa.transform(input_vector)[0]
             # if submit:
