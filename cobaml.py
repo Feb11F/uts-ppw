@@ -318,7 +318,8 @@ with st.container():
         beta = 0.2
         lda = LatentDirichletAllocation(n_components=k, doc_topic_prior=alpha, topic_word_prior=beta)
         proporsi_topik_dokumen = lda.fit_transform(X_train_tfidf)
-
+        
+        import pickle
         with open('lda.pkl', 'rb') as file:
             ldaa = pickle.load(file)
         with open('nb_classifier.pkl', 'rb') as file:
