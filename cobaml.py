@@ -295,57 +295,24 @@ with st.container():
             
         with open('nb_classifier.pkl', 'rb') as file:
             nb = pickle.load(file)
-        
+
         with st.form("my_form"):
             st.subheader("Implementasi")
             input_dokumen = st.text_input('Masukkan Judul Yang Akan Diklasfifikasi')
             input_vector = tfidf_vectorizer.transform([input_dokumen])
+            submit = st.form_submit_button("submit")
             # Prediksi proporsi topik menggunakan model LDA
-            proporsi_topik = ldaa.transform(input_vector)[0]
-            # if submit:
-            #     st.subheader('Hasil Prediksi')
-            #     inputs = np.array([input_dokumen])
-            #     input_norm = np.array(inputs)
-            #     input_pred = nb.predict(input_vector)[0]
-            # # Menampilkan hasil prediksi
-            #     if input_pred==0:
-            #         st.success('RPL')
-            #         st.write(proporsi_topik)
-            #     else  :
-            #         st.success('KK')
-            #         st.write(proporsi_topik)
-            st.write ("Pilih metode yang ingin anda gunakan :")
-            met1 = st.checkbox("KNN")
-            # if met1 :
-            #     st.write("Hasil Akurasi Data Training Menggunakan KNN sebesar : ", (100 * metode1.score(X_train, y_train)))
-            #     st.write("Hasil Akurasi Data Testing Menggunakan KNN sebesar : ", (100 * (metode1.score(X_test, y_test))))
-            met2 = st.checkbox("Naive Bayes")
-            # if met2 :
-            #     st.write("Hasil Akurasi Data Training Menggunakan Naive Bayes sebesar : ", (100 * metode2.score(X_train, y_train)))
-            #     st.write("Hasil Akurasi Data Testing Menggunakan Naive Bayes sebesar : ", (100 * metode2.score(X_test, y_test)))
-            met3 = st.checkbox("Decesion Tree")
-            # if met3 :
-                # st.write("Hasil Akurasi Data Training Menggunakan Decission Tree sebesar : ", (100 * metode3.score(X_train, y_train)))
-                # st.write("Hasil Akurasi Data Testing Menggunakan Decission Tree sebesar : ", (100 * metode3.score(X_test, y_test)))
-            submit2 = st.button("Pilih")
+            proporsi_topik = lda.transform(input_vector)[0]
+            if submit:
+                st.subheader('Hasil Prediksi')
+                inputs = np.array([input_dokumen])
+                input_norm = np.array(inputs)
+                input_pred = nb.predict(input_vector)[0]
+            # Menampilkan hasil prediksi
+                if input_pred==0:
+                    st.success('RPL')
+                    st.write(proporsi_topik)
+                else  :
+                    st.success('KK')
+                    st.write(proporsi_topik)
 
-            if submit2:      
-                if met1 :
-                    erge=0
-                elif met2 :
-                    st.write("Metode yang Anda gunakan Adalah Naive Bayes")
-                    st.subheader('Hasil Prediksi')
-                    inputs = np.array([input_dokumen])
-                    input_norm = np.array(inputs)
-                    input_pred = nb.predict(input_vector)[0]
-                    # Menampilkan hasil prediksi
-                    if input_pred==0:
-                        st.success('RPL')
-                        st.write(proporsi_topik)
-                    else  :
-                        st.success('KK')
-                        st.write(proporsi_topik)
-                elif met3 :
-                    ergere=0
-                else :
-                    st.write("Anda Belum Memilih Metode")
