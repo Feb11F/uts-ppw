@@ -338,7 +338,7 @@ with st.container():
                 st.subheader('Hasil Prediksi')
                 inputs = np.array([input_dokumen])
                 input_norm = np.array(inputs)
-                input_pred = nb.predict(input_vector)[0]
+                input_pred = knn.predict(input_vector)[0]
             # Menampilkan hasil prediksi
                 if input_pred==0:
                     st.success('RPL')
