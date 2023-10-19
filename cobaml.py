@@ -323,7 +323,7 @@ with st.container():
         with open('lda.pkl', 'rb') as file:
             ldaa = pickle.load(file)
         with open('nb_classifier.pkl', 'rb') as file:
-            nb = pickle.load(file)
+            bayes = pickle.load(file)
         with open('knn.pkl', 'rb') as file:
             knn = pickle.load(file)
 
@@ -338,7 +338,7 @@ with st.container():
                 st.subheader('Hasil Prediksi')
                 inputs = np.array([input_dokumen])
                 input_norm = np.array(inputs)
-                input_pred = knn.predict(input_vector)[0]
+                input_pred = bayes.predict(input_vector)[0]
             # Menampilkan hasil prediksi
                 if input_pred==0:
                     st.success('RPL')
