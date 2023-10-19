@@ -305,12 +305,12 @@ with st.container():
             input_vector = tfidf_vectorizer.transform([input_dokumen])
             submit = st.form_submit_button("submit")
             # Prediksi proporsi topik menggunakan model LDA
-            proporsi_topik = ldaa.transform(input_vector)[0]
+            proporsi_topik = lda.transform(input_vector)[0]
             if submit:
                 st.subheader('Hasil Prediksi')
                 inputs = np.array([input_dokumen])
                 input_norm = np.array(inputs)
-                input_pred = knn.predict(input_vector)[0]
+                input_pred = nb_classifie.predict(input_vector)[0]
             # Menampilkan hasil prediksi
                 if input_pred==0:
                     st.success('RPL')
