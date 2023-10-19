@@ -319,7 +319,12 @@ with st.container():
         lda = LatentDirichletAllocation(n_components=k, doc_topic_prior=alpha, topic_word_prior=beta)
         proporsi_topik_dokumen = lda.fit_transform(X_train_tfidf)
 
-        
+        with open('lda.pkl', 'rb') as file:
+            ldaa = pickle.load(file)
+        with open('nb_classifier.pkl', 'rb') as file:
+            nb = pickle.load(file)
+        with open('knn.pkl', 'rb') as file:
+            knn = pickle.load(file)
 
         with st.form("my_form"):
             st.subheader("Implementasi")
@@ -332,7 +337,7 @@ with st.container():
                 st.subheader('Hasil Prediksi')
                 inputs = np.array([input_dokumen])
                 input_norm = np.array(inputs)
-                input_pred = nb_classifier.predict(input_vector)[0]
+                input_pred = nb.predict(input_vector)[0]
             # Menampilkan hasil prediksi
                 if input_pred==0:
                     st.success('RPL')
