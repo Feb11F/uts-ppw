@@ -319,8 +319,15 @@ with st.container():
         lda = LatentDirichletAllocation(n_components=k, doc_topic_prior=alpha, topic_word_prior=beta)
         proporsi_topik_dokumen = lda.fit_transform(X_train_tfidf)
 
+        with open('lda.pkl', 'rb') as file:
+            loaded_model = pickle.load(file)
+            
+        with open('nb.pkl', 'rb') as file:
+            loaded_model = pickle.load(file)
+            
+        with open('knn.pkl', 'rb') as file:
+            loaded_model = pickle.load(file)
         
-
         with st.form("my_form"):
             st.subheader("Implementasi")
             input_dokumen = st.text_input('Masukkan Judul Yang Akan Diklasfifikasi')
