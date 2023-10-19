@@ -14,7 +14,7 @@ from sklearn.cluster import KMeans
 
 
 st.set_page_config(
-    page_title="UTS PPW",
+    page_title="Implemntasi Adabooost",
     page_icon='https://cdn-icons-png.flaticon.com/512/1998/1998664.png',
     layout='centered',
     initial_sidebar_state="expanded",
@@ -281,7 +281,7 @@ with st.container():
         #             st.success('malignant')
         #         else :
         #             st.success('benign')
-        import pickle
+
         import pandas as pd
         import numpy as np
         from sklearn.decomposition import LatentDirichletAllocation
@@ -290,14 +290,36 @@ with st.container():
         from sklearn.model_selection import train_test_split
         from sklearn.metrics import accuracy_score
 
-        with open('lda.pkl', 'rb') as file:
-            ldaa = pickle.load(file)
+        # Baca data
+        data_x = pd.read_csv('https://raw.githubusercontent.com/Feb11F/dataset/main/Term%20Frequensi%20Berlabel%20Final.csv')
+        data_x = data_x.dropna(subset=['Dokumen'])  # Menghapus baris yang memiliki NaN di kolom 'Dokumen'
 
-        with open('knn.pkl', 'rb') as file:
-            knn = pickle.load(file)        
+        # Ubah kelas A menjadi 0 dan kelas B menjadi 1
+        kelas_dataset_binary = [0 if kelas == 'RPL' else 1 for kelas in data_x['Label']]
+        data_x['Label'] = kelas_dataset_binary
+
+        # Bagi data menjadi data pelatihan dan data pengujian
+        X = data_x['Dokumen']
+        label = data_x['Label']
+        X_train, X_test, y_train, y_test = train_test_split(X, label, test_size=0.2, random_state=42)
+
+        # Vektorisasi teks menggunakan TF-IDF
+        tfidf_vectorizer = TfidfVectorizer()
+        X_train_tfidf = tfidf_vectorizer.fit_transform(X_train)
+        X_test_tfidf = tfidf_vectorizer.transform(X_test)
+
+        # Latih model Naive Bayes
+        nb_classifier = MultinomialNB()
+        nb_classifier.fit(X_train_tfidf, y_train)
+
+        # Latih model LDA
+        k = 3
+        alpha = 0.1
+        beta = 0.2
+        lda = LatentDirichletAllocation(n_components=k, doc_topic_prior=alpha, topic_word_prior=beta)
+        proporsi_topik_dokumen = lda.fit_transform(X_train_tfidf)
+
         
-        with open('nb_classifier.pkl', 'rb') as file:
-            nb = pickle.load(file)
 
         with st.form("my_form"):
             st.subheader("Implementasi")
@@ -310,7 +332,7 @@ with st.container():
                 st.subheader('Hasil Prediksi')
                 inputs = np.array([input_dokumen])
                 input_norm = np.array(inputs)
-                input_pred = nb_classifie.predict(input_vector)[0]
+                input_pred = nb_classifier.predict(input_vector)[0]
             # Menampilkan hasil prediksi
                 if input_pred==0:
                     st.success('RPL')
@@ -318,4 +340,3 @@ with st.container():
                 else  :
                     st.success('KK')
                     st.write(proporsi_topik)
-
